@@ -9,25 +9,48 @@ public class App {
 
     static void triangulo(int num) {
 
-        // contadora para guardar a linha atual durante o laço for
-        int linha = 0; 
-
         for (int i = 0; i < num; i++) {
 
             for (int j = num - i; j >= 1; j--) {
                 System.out.printf(" ");
             }
 
-            for (int k = 0; k < linha; k++) {
+            for (int k = 0; k <= i; k++) {
                 System.out.printf("*");
             }
             System.out.printf("\n");
-            linha++;
         }
 
     }
 
     static void losango(int num) {
+
+        for(int i = 0; i < num / 2; i++){
+
+            for(int j = num - i; j >= 1; j--){
+                System.out.printf(" ");
+            }
+
+            for (int k = 0; k <= i; k++) {
+                System.out.printf("**");
+            }
+
+            System.out.printf("\n");
+        }
+
+        for(int i = num / 2; i >= 0; i--){
+
+            for(int j = num - i; j > 0; j--){
+                System.out.printf(" ");
+            }
+
+            for (int k = 0; k <= i; k++) {
+                System.out.printf("**");
+            }
+
+            System.out.printf("\n");
+
+        }
 
     }
 
@@ -87,29 +110,47 @@ public class App {
 
         String figura = valida_entrada(args[0]);
 
-        if (figura.equals("0")) {
-            System.out.println("Erro: digitar no terminal \"gradle run --args nome_figura dimensoes\"");
-            return;
-        }
-
         // Se a entrada estiver errada, avisa e encerra imediatamente
         switch (figura) {
 
             case "triangulo": {
                 int num = Integer.parseInt(args[1]);
+
+                if(num < 1){
+                    System.out.printf("Entre apenas com inteiros positivos\n");
+                    return;
+                }
+
                 triangulo(num);
                 break;
             }
             case "losango": {
+
                 int num = Integer.parseInt(args[1]);
+
+                if(num < 1){
+                    System.out.printf("Entre apenas com inteiros positivos\n");
+                    return;
+                }
+
                 losango(num);
                 break;
             }
             case "retangulo": {
+
                 int altura = Integer.parseInt(args[1]);
                 int largura = Integer.parseInt(args[2]);
+
+                if(altura < 1 || largura < 1){
+                    System.out.printf("Entre apenas com inteiros positivos\n");
+                    return;
+                }
+
                 retangulo(altura, largura);
             }
+            default:
+                System.out.println("Erro: digitar no terminal \"gradle run --args nome_figura dimensoes\"");
+
         }
     }
 }
