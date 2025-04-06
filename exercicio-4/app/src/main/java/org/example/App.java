@@ -14,7 +14,7 @@ public class App {
     
     static int formato_correto(String caminho){
 
-        // Se tiver 10 linhas e existir arq.lenght() - linhas - 1 caracteres, o formato está correto,
+        // Se tiver 10 linhas e existir arq.lenght() - linhas caracteres, o formato está correto,
         // pois no meu gerador de tabuleiro cada casa está no formato "caractere+espaço", Ex: "P "
         // Logo, a quantidade de caracteres gerados pelo meu programa é 209:
         // Cada casa ocupa dois caracteres;
@@ -31,18 +31,26 @@ public class App {
                 linhas++;
             }
 
-            if(arq.length() - linhas - 1 == 200)
-            return 1;
+            leitura.close();
+
+            // Sabendo que arq.length() retorna o tamanho do arquivo em Bytes
+            // e que um char tem 1 Byte de tamanho, sabemos que o arquivo tem
+            // arq.length caracteres...
+            if(arq.length() - linhas == 200)
+                return 1;
 
         } 
 
         catch (FileNotFoundException e) {
             System.out.println("Arquivo não encontrado: " + caminho);
         }
-
+    
         return 0;  
     }
 
+    // Lê o arquivo
+        // Retorna um vetor 2D com o tabuleiro, se sucesso
+        // null, caso contrário
     static String[][] retorna_tab(String caminho){
 
         String[][] tab = new String[10][10];
@@ -51,12 +59,11 @@ public class App {
 
             File arq = new File(caminho);
             Scanner leitura = new Scanner(arq);
-            String linha;
             int l = 0;
 
             while(leitura.hasNextLine()){
                 
-                linha = leitura.nextLine();
+                String linha = leitura.nextLine();
                 String[] aux = linha.split(" ");
 
                 for(int c = 0; c < 10; c++){
@@ -68,11 +75,13 @@ public class App {
 
                 l++;
             }
+
             leitura.close();
         } 
 
         catch (FileNotFoundException e) {
             System.out.println("Arquivo não encontrado: " + caminho);
+            return null;
         }
 
         return tab;
@@ -86,29 +95,55 @@ public class App {
             // Caso contrário, retorna 1
 
         String[][] tab = retorna_tab(caminho);
+        if(tab == null)
+            return 0;
+
         for(int i = 0; i < 10; i++){
 
             for(int j = 0; j < 10; j++){
 
-                if(! tab[i][j].equals(". ") || ! tab[i][j].equals("P ") || ! tab[i][j].equals("C ") || 
-                   ! tab[i][j].equals("C ") || ! tab[i][j].equals("N. ") || ! tab[i][j].equals("S ") )
-                    return 0;
+                switch(tab[i][j]){
+                    
+                    // Vou utilizar o escorregamento
+                    case "P ":
+                    case "E ":
+                    case "C ":
+                    case "S ":
+                    case "N ":
+                    case ". ":
+                        break;
+
+                    default: 
+                        return 0;
+                }
 
             }
 
         }
 
         return 1;
-
     }
 
     public static void main(String[] args) {
         
+        /*
+         * Este programa valida um tabuleiro naval gerado no formato que meu programa do exercício 3
+         * cria. Caso tenha um arquivo com um tabuleiro VÁLIDO mas há um mínimo parâmetro incorreto
+         * em relação ao tabuleiro gerado pelo meu código, este programa retornará "tabuleiro INVÁLIDO".
+         * 
+         * Como não foi explicado para o aluno como funciona a leitura via linha de comando
+         * no formato do enunciado: "java ConverteString < entrada.txt", eu atribuí para a
+         * variável "caminho" o diretório completo de onde está o arquivo .txt com o tabuleiro naval
+         * 
+         * Sendo assim, para executar este arquivo, deve-se digitar o comando "gradle run" dentro
+         * da pasta "exercicio-4".
+        */
+
         String caminho = "/home/igor/Área de Trabalho/Linguagem_Java/lista-1-igor1023/exercicio-4/tabuleiro.txt";
         
         if(formato_correto(caminho) == 1 && simbologia_correta(caminho) == 1)
-            System.out.printf("Tabuleiro válido\n");
-        else System.out.printf("Tabuleiro inválido\n");
+            System.out.printf("Tabuleiro VÁLIDO\n");
+        else System.out.printf("Tabuleiro INVÁLIDO\n");
 
     }
 }
