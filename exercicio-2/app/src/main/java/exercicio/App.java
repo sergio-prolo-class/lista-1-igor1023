@@ -7,25 +7,20 @@ package exercicio;
 public class App {
     
     static String numero_faixa(String faixa) {
-    
-    // Por algum motivo desconhecido, o exercício um aceita o Switch com atribuição
-    // direta para uma variável. Este arquivo exercicio-2 não aceita, pois está 
-    // abaixo da versão JAVA 14
 
-    switch (faixa) {
-        case "preto":    return "0";
-        case "marrom":   return "1";
-        case "vermelho": return "2";
-        case "laranja":  return "3";
-        case "amarelo":  return "4";
-        case "verde":    return "5";
-        case "azul":     return "6";
-        case "violeta":  return "7";
-        case "cinza":    return "8";
-        case "branco":   return "9";
-        default:         return "-1"; // Entrada inválida
-    }
-
+        switch (faixa) {
+            case "preto":    return "0";
+            case "marrom":   return "1";
+            case "vermelho": return "2";
+            case "laranja":  return "3";
+            case "amarelo":  return "4";
+            case "verde":    return "5";
+            case "azul":     return "6";
+            case "violeta":  return "7";
+            case "cinza":    return "8";
+            case "branco":   return "9";
+            default:         return "-1"; // Entrada inválida
+        }
 
     }
 
