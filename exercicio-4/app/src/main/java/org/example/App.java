@@ -139,7 +139,8 @@ public class App {
          * da pasta "exercicio-4".
         */
 
-        String caminho = "/home/igor/Área de Trabalho/Linguagem_Java/lista-1-igor1023/exercicio-4/tabuleiro.txt";
+        // Insira o caminho do arquivo .txt atribuindo-o para a String "caminho"
+        String caminho = args[0] = "/home/igor/Área de Trabalho/Linguagem_Java/lista-1-igor1023/exercicio-4/tabuleiro.txt";
         
         if(formato_correto(caminho) == 1 && simbologia_correta(caminho) == 1)
             System.out.printf("Tabuleiro VÁLIDO\n");
